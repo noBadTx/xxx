@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="front_role">
+	<typeAlias alias="accountRole" type="com.xemoo.pojo.login.AccountRole"/>
+	<typeAlias alias="role" type="com.xemoo.pojo.login.Role"/>
+	<sql id="role_act_mapping_fields">
+		ar_account_id,
+		ar_f_role_id,
+		ar_brand_id,
+		ar_status,
+		ar_create,
+		ar_modify
+	</sql>
+
+	<!-- 插入一条账号和角色的关联关系记录 -->
+	<insert id="insertRoleAccountRelation" parameterClass="accountRole">
+		INSERT INTO x_account_role(
+		<include refid="role_act_mapping_fields" />
+		)
+		VALUES(
+		#accountId#,
+		#roleId#,
+		#brandId#,
+		#status#,
+		NOW(),
+		NOW()
+		)
+	</insert>
+
+	<update id="updateRoleAccountRelation" parameterClass="accountRole">
+		UPDATE x_account_role 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="modify">
+				ar_modify = #modify#
+			</isNotNull>
+			<isNotNull prepend="," property="roleId">
+				ar_f_role_id = #roleId#
+			</isNotNull>
+			<isNotNull prepend="," property="brandId">
+				ar_brand_id = #brandId#
+			</isNotNull>
+			<isNotNull prepend="," property="status">
+				ar_status = #status#
+			</isNotNull>
+		</dynamic>
+		WHERE 1=1
+		<isNotEmpty prepend="and" property="id">
+			ar_id = #id#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="accountId">
+			ar_account_id = #accountId#
+		</isNotEmpty>
+	</update>
+	
+	<typeAlias alias="frontRole" type="com.xemoo.pojo.login.FrontRole"/>
+	
+	<!-- 需分页 -->
+	<select id="query_front_role_List" resultClass="frontRole" parameterClass="java.util.Map">
+		select `f_role_id` `id` , `f_role_name` `name` , `f_role_status` `status`,
+		`f_role_create` `create`, `f_role_modify` `modify` from x_front_role where f_role_status =1
+		<isNotEmpty property="page"><![CDATA[ order by f_role_id desc   limit $page.start$ ,$page.count$ ]]></isNotEmpty>
+	</select>
+	
+	<select id="query_front_role_List_count"  resultClass="int">
+		select count(*) 
+		from x_front_role where 1=1 and f_role_status = 1
+	</select>
+	
+	<select id="query_front_role_by_id" parameterClass="Long" resultClass="frontRole">
+		select `f_role_id` `id` , `f_role_name` `name` , `f_role_status` `status`,
+		`f_role_create` `create`, `f_role_modify` `modify` from x_front_role 
+		where `f_role_id` = #roleId# 
+	</select>
+	
+	<insert id="insert_front_role" parameterClass="frontRole">
+		INSERT INTO `x_front_role` (`f_role_name`, `f_role_status`, `f_role_create`, `f_role_modify`)
+			VALUES
+		(#name#, #status#, now(), now());
+		<selectKey resultClass="int" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS id
+		</selectKey>
+	</insert>
+	
+	<update id="update_front_role" parameterClass="frontRole">
+		update x_front_role 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="name">
+				f_role_name = #name#
+			</isNotNull>
+			<isNotNull prepend="," property="status">
+				f_role_status = #status#
+			</isNotNull>
+			<isNotNull prepend="," property="modify">
+				f_role_modify = #modify#
+			</isNotNull>
+		</dynamic>
+		where f_role_id = #id#
+	</update>
+	
+	<typeAlias alias="roleMoudle" type="com.xemoo.pojo.login.RoleMoudle"/>
+	<resultMap class="roleMoudle" id="role_moudle_rmap">
+		<result property="id" column="role_m_id"/>
+		<result property="fRoleId" column="f_role_id"/>
+		<result property="role" column="role_id" select="front_role.getRoleById"/>
+		<result property="status" column="role_m_status"/>
+		<result property="create" column="role_m_create"/>
+		<result property="modify" column="role_m_modify"/>
+	</resultMap>
+	
+	<resultMap class="role" id="x_role_rmap">
+		<result property="id" column="role_id"/>
+		<result property="name" column="role_name"/>
+		<result property="status" column="role_status"/>
+		<result property="create" column="role_create"/>
+		<result property="modify" column="role_modify"/>
+	</resultMap>
+	
+	<sql id="x_role_fileds">
+		role_id, role_name, role_status, role_create, role_modify
+	</sql>
+	
+	<statement id="getRoleById" parameterClass="int" resultMap="x_role_rmap">
+		select <include refid="x_role_fileds"/>
+		from x_role
+		where role_id = #id#
+	</statement>
+	
+	
+	<select id="select_role_module" parameterClass="Long" resultMap="role_moudle_rmap">
+		select role_m_id, f_role_id, role_id , role_m_status, role_m_create, role_m_modify from x_role_moudle 
+		where `f_role_id` = #roleId# 
+	</select>
+	
+	<insert id="insert_role_moudle" parameterClass="java.util.Map">
+		INSERT INTO `x_role_moudle` (`f_role_id`, `role_id`, `role_m_status`, `role_m_create`, `role_m_modify`)
+			VALUES
+		(#fRoleId#,#roleId#, #status#, now(), now());
+	</insert>
+	
+	<delete id="delete_role_moudle" parameterClass="java.util.Map">
+		delete from x_role_moudle where f_role_id = #fRoleId# and role_id = #roleId#
+	</delete>
+</sqlMap>

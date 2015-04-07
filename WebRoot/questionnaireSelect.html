@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>我合品管理平台</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="assets/style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.min.css">
+<!--[if IE 7]>
+<link rel="stylesheet" href="assets/font-awesome/css/font-awesome-ie7.css">
+<![endif]-->
+<!--[if lt IE 9]>
+<script src="assets/html5.js"></script>
+<![endif]-->
+</head>
+<body class="page">
+	<header class="g_hd clearfix">
+		<div class="fl logo">我合品管理平台</div>
+		<div class="fr"><span>Admin</span><a href="javascript:;" class="sign-out">退出</a></div>
+	</header>
+
+	<section class="clearfix g_bd">
+		<nav class="nav_side">
+			<header>
+				<p>品牌<a href="javascript:;" class="addBrand"><i class="fa fa-plus"></i>新增</a></p>
+			</header>
+			<ul>
+				<li class="active">
+					<dl>
+						<dt><span class="fa fa-android"></span>肯德基</dt>
+						<dd><a class="cur" href="brand-activity.html">活动管理</a></dd>
+						<dd><a href="brand-profile.html">账号管理</a></dd>
+					</dl>	
+				</li>
+				<li>
+					<dl>
+						<dt><span class="fa fa-list"></span>XXX<span class="fa fa-angle-down"></span></dt>
+						<dd><a href="brand-activity.html">活动管理</a></dd>
+						<dd><a href="brand-profile.html">账号管理</a></dd>
+					</dl>	
+				</li>
+			</ul>
+		</nav>
+		<div class="con_wrap">
+			<div class="con_main">
+				<nav class="nav_main"><a href="index.html">首页</a><a href="brandManager.html" class="cur">品牌管理</a><a href="userManager.html">用户管理</a><a href="financeManager.html">财务管理</a><a href="system.html">系统管理</a></nav>
+				<div class="box-main">
+					<div class="crumb"><a href="index.html">品牌管理</a>&gt;<span>活动管理</span>&gt;<span>问卷收集</span></div>
+					<div class="queryBox clearfix">
+						<form action="#" class="fl">
+							<input type="text" class="text" name="" placeholder="请输入账户名"/><select><option>全部</option><option>未审核</option><option>已发礼</option><option>未发礼</option></select><input type="button" class="button" value="查询" />
+						</form>
+						<div class="toolbox fr">
+							<a href="javascript:;" class="button bulkSentGift">批量发礼</a><a href="javascript:;" class="button bulkNotSentGift">批量不发礼</a><a href="brand-activity.html" class="button gray">返回活动管理</a>
+						</div>
+					</div>
+
+					<div class="databox">
+						<table class="datagrid">
+							<thead>
+								<tr>
+									<th><input type="checkbox" class="int-check selectAll" >序号</th><th>账户名</th><th>联系手机</th><th>支付宝账号</th><th>状态</th><th>个人礼金</th><th>送友礼金</th><th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><label><input type="checkbox" value="1" class="int-check selectItem" >01</label></td><td>Jennier</td><td>18122222222</td><td>434343@qq.com</td><td>未审核</td><td>-</td><td>-</td><td><a href="#" data-id="1" class="ilink viewActivity">查看答卷</a><a href="javascript:;" data-id="1" class="ilink sentGift">发礼</a><a href="javascript:;" data-id="1" class="ilink s2 notSentGift">不发礼</a></td>
+								</tr>
+
+								<tr class="odd">
+									<td><label><input type="checkbox" value="1" class="int-check selectItem" >01</label></td><td>Jennier</td><td>18122222222</td><td>434343@qq.com</td><td>未审核</td><td>&yen;&nbsp;50</td><td>&yen;&nbsp;20</td><td><a href="#" data-id="1" class="ilink viewActivity">查看答卷</a></td>
+								</tr>
+								<tr>
+									<td><label><input type="checkbox" value="1" class="int-check selectItem" >01</label></td><td>Jennier</td><td>18122222222</td><td>434343@qq.com</td><td>未审核</td><td>-</td><td>-</td><td><a href="#" data-id="1" class="ilink viewActivity">查看答卷</a><a href="javascript:;" data-id="1" class="ilink sentGift">发礼</a><a href="javascript:;" data-id="1" class="ilink s2 notSentGift">不发礼</a></td>
+								</tr>
+
+								<tr class="odd">
+									<td><label><input type="checkbox" value="1" class="int-check selectItem" >01</label></td><td>Jennier</td><td>18122222222</td><td>434343@qq.com</td><td>未审核</td><td>&yen;&nbsp;50</td><td>&yen;&nbsp;20</td><td><a href="#" data-id="1" class="ilink viewActivity">查看答卷</a></td>
+								</tr>
+
+							</tbody>
+						</table>
+						<div class="pagelist clearfix">
+							<span class="fl">第1/12页 ，共 111 条记录</span>
+							<p class="fr">
+								<a href="#" class="first">首页</a><a href="#" class="pre">&lt;上一页</a><a href="1">1</a><a href="2">2</a><strong>3</strong><a href="4">4</a><a href="5">5</a><a href="#" class="next">下一页&gt;</a><a href="#" class="last">尾页</a>
+							</p>
+						</div>
+					</div>
+
+				</div>
+
+
+			</div>
+		</div>
+	</section>
+	<footer class="g_ft">Copyright 2006-2014 版权所有 我合品</footer>
+
+
+
+
+	<script type="text/javascript" src="assets/lib/sea.js"></script>
+	<script type="text/javascript" src="assets/lib/sea.config.js"></script>
+	<script type="text/javascript">seajs.use('modules/brand');</script>
+</body>
+</html>

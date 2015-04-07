@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ActionList>
+	<!--登录 -->
+	<Action msgType="login" service="com.xemoo.app.service.LoginService">
+	</Action>
+</ActionList>

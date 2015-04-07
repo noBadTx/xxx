@@ -1,0 +1,16 @@
+<div class="form_wrap">
+	<form class="editRoleForm beautyRadio" action="">
+		<p class="form_item">
+			<label class="lb_text"><i class="req">*</i>角色名：</label><input type="text" value="" name="roleName"  class="inputxt" datatype="*" nullmsg="请输入角色名！"><span class="Validform_checktip"></span>
+		</p>
+		<p class="form_item">
+			<label class="lb_text"> 拥有所有权限：</label><label class="f_radio">是<input type="radio" name="isSuper" class="inputradio" value="true" /></label><label class="f_radio checked">否<input type="radio" class="inputradio" checked="" value="false"  name="isSuper" /></label>
+		</p>
+		<div class="form_item checkboxGroup">
+			<label class="f_checkbox"><span><s class="fa fa-stop"></s><input type="checkbox" name="permission" value="1" /></span>品牌管理</label>
+			<label class="f_checkbox"><span><s class="fa fa-stop"></s><input type="checkbox" name="permission" value="2" /></span>财务管理</label>
+			<label class="f_checkbox"><span><s class="fa fa-stop"></s><input type="checkbox" name="permission" value="3" /></span>用户管理</label>
+			<label class="f_checkbox"><span><s class="fa fa-stop"></s><input type="checkbox" name="permission" value="4" /></span>系统管理</label>
+		</div>
+	</form>
+</div>

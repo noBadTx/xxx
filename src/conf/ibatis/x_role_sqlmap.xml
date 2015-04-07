@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="role">
+	<select id="query_role_List" resultClass="com.xemoo.pojo.login.Role">
+		select `role_id` `id` , `role_name` `name` , `role_parent_id` `parentId` , `role_status` `status`,
+		`role_type` `type`, `role_create` `create`, `role_modify` `modify` from b_role 
+	</select>
+	
+	<select id="query_role_by_id" parameterClass="Long" resultClass="com.xemoo.pojo.login.Role">
+		select `role_id` `id` , `role_name` `name` , `role_parent_id` `parentId` , `role_status` `status`,
+		`role_type` `type`, `role_create` `create`, `role_modify` `modify` from b_role 
+		where `role_id` = #roleId# 
+	</select>
+	
+	<insert id="insert_permission_role" parameterClass="java.util.Map">
+		INSERT INTO `b_role_permission` (`rp_role_id`, `rp_permssion_id`, `rp_status`, `rp_create`, `rp_modify`)
+			VALUES
+		(#roleId#, #pid#, 1, now(), now());
+	</insert>
+	
+	<delete id="delete_permission_role" parameterClass="java.util.Map">
+		delete from b_role_permission where rp_role_id = #roleId# and rp_permssion_id = #pid#
+	</delete>
+</sqlMap>

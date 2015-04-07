@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="questionnaire_config">
+
+	<typeAlias alias="questionConfig" type="com.xemoo.pojo.questionnaire.QuestionConfig"/>
+	
+	<select id="query_questionnarire_config_by_id" parameterClass="Long" resultClass="questionConfig">
+		select `qg_id` `id` , `qs_id` `qsId` , `qg_amount1` `amountExcellent`,
+		`qg_amount2` `amountFine`, `qg_amount3` `amountFriend`, `qg_create` `create` from x_qustionnaire_gift_config 
+		where `qs_id` = #qsId# 
+	</select>
+	
+	<insert id="insert_questionnarire_config" parameterClass="questionConfig">
+		INSERT INTO `x_qustionnaire_gift_config` (`qs_id`, `qg_amount1`, `qg_amount2`, `qg_amount3`, `create`)
+			VALUES
+		(#qsId#, #amountExcellent#, #amountFine#, #amountFriend#, now());
+	</insert>
+	
+	<update id="update_questionnarire_config" parameterClass="questionConfig">
+		update x_qustionnaire_gift_config 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="name">
+				qs_id = #name#
+			</isNotNull>
+			<isNotNull prepend="," property="amountExcellent">
+				qg_amount1 = #amountExcellent#
+			</isNotNull>
+			<isNotNull prepend="," property="amountFine">
+				qg_amount2 = #amountFine#
+			</isNotNull>
+			<isNotNull prepend="," property="amountFriend">
+				qg_amount3 = #amountFriend#
+			</isNotNull>
+		</dynamic>
+		where qg_id = #id#
+	</update>
+	
+</sqlMap>

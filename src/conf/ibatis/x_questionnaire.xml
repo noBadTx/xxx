@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="questionnaire">
+	<typeAlias alias="questionSummary" type="com.xemoo.pojo.questionnaire.QuestionSummary"/>
+	
+	<resultMap id="question_summary_rMap" class="questionSummary">
+		<result column="qs_id" property="id" />
+		<result column="qs_name" property="name" />
+		<result column="qs_url" property="url" />
+		<result column="qs_status" property="status" />
+		<result column="qs_start_time" property="startTime" />
+		<result column="qs_end_time" property="endTime" />
+		<result column="qs_create" property="create" />
+		<result column="qs_modify" property="modify" />
+	</resultMap>
+	
+	<select id="queryQuestionSummary"  resultMap="question_summary_rMap" parameterClass="long"> 
+		select qs_id, qs_name, qs_url, qs_status, qs_start_time, qs_end_time, qs_create, qs_modify 
+		from x_questionnaire_summary where 1=1 and qs_status = 1 and 
+		qs_id = #id#
+	</select>
+	
+	<select id="queryQuestionSummaryList"  resultMap="question_summary_rMap" parameterClass="java.util.Map"> 
+		select qs_id, qs_name, qs_url, qs_status, qs_start_time, qs_end_time, qs_create, qs_modify
+		from x_questionnaire_summary where 1=1 and qs_status = 1
+		<isNotEmpty prepend="and" property="qSummary.name">
+			qs_name like CONCAT('%',#qSummary.name#, '%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="qSummary.startTime">
+			<![CDATA[
+				qs_start_time >= #qSummary.startTime#
+			 ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="qSummary.endTime">
+			<![CDATA[
+				qs_end_time <= #qSummary.endTime#
+			 ]]>
+		</isNotEmpty>
+		<isNotEmpty property="page"><![CDATA[ order by qs_id desc   limit $page.start$ ,$page.count$ ]]></isNotEmpty>
+	</select>
+	
+	<select id="queryQuestionSummaryListCnt"  resultClass="int" parameterClass="java.util.Map">
+		select count(*) 
+		from x_questionnaire_summary where 1=1 and qs_status = 1
+		<isNotEmpty prepend="and" property="qSummary.name">
+			qs_name like CONCAT('%',#qSummary.name#, '%')
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="qSummary.startTime">
+			<![CDATA[
+				qs_start_time >= #qSummary.startTime#
+			 ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="qSummary.endTime">
+			<![CDATA[
+				qs_end_time <= #qSummary.endTime#
+			 ]]>
+		</isNotEmpty>
+	</select>
+	
+	<insert id="insert_questionnarire_summary" parameterClass="questionSummary">
+		INSERT INTO `x_questionnaire_summary`(`qs_name`, `qs_url`, `qs_status`, `qs_start_time`, `qs_end_time`, `qs_create`, `qs_modify`)
+			VALUES
+		(#name#, #url#, #status#, now(), #startTime#, #endTime#, now());
+	</insert>
+	
+	<update id="update_questionnarire_summary" parameterClass="questionSummary">
+		update x_questionnaire_summary 
+		<dynamic prepend="set">
+			<isNotEmpty prepend="," property="status">
+				qs_status = #status#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="startTime">
+				qs_start_time = #startTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="startTime">
+				qs_end_time = #endTime#
+			</isNotEmpty>
+		</dynamic>
+		where qs_id = #id#
+	</update>
+	
+	<typeAlias alias="questionUser" type="com.xemoo.pojo.questionnaire.QuestionSummaryUser"/>
+	
+	<resultMap id="question_summary_user_rMap" class="questionUser">
+		<result column="qsu_id" property="id" />
+		<result column="qs_id" property="qsId" />
+		<result column="user_id" property="userId" />
+		<result column="qsu_gift_state" property="giftState" />
+		<result column="qsu_private_gift" property="privateGift" />
+		<result column="qsu_friend_gift" property="friendGift" />
+		<result column="qsu_create_time" property="create" />
+		<result column="qsu_modify_time" property="modify" />
+		<result column="qsu_status" property="status" />
+	</resultMap>
+	
+	<select id="queryQuestionSummaryUserById"  resultMap="question_summary_user_rMap" parameterClass="long"> 
+	select qsu_id,qs_id, user_id, qsu_gift_state, qsu_private_gift, qsu_friend_gift, qsu_create_time, qsu_modify_time, qsu_status 
+		from x_questionnaire_summary_user where 1=1 and qsu_status = 1 and 
+		qsu_id = #id#
+	</select>
+	
+	<select id="queryQuestionSummaryUserListByQsId"  resultMap="question_summary_rMap" parameterClass="java.util.Map"> 
+	select qsu_id,qs_id, user_id, qsu_gift_state, qsu_private_gift, qsu_friend_gift, qsu_create_time, qsu_modify_time, qsu_status 
+		from x_questionnaire_summary_user where 1=1 and qsu_status = 1
+		<isNotEmpty prepend="and" property="qSummaryUser.qsId">
+			qs_id = #qSummaryUser.qsId#
+		</isNotEmpty>
+		<isNotEmpty property="page"><![CDATA[ order by qs_id desc   limit $page.start$ ,$page.count$ ]]></isNotEmpty>
+	</select>
+	
+	<select id="queryQuestionSummaryUserListByQsIdCnt"  resultClass="int" parameterClass="java.util.Map">
+		select count(*) 
+		from x_questionnaire_summary_user where 1=1 and qsu_status = 1
+		<isNotEmpty prepend="and" property="qSummaryUser.qsId">
+			qs_id = #qSummaryUser.qsId#
+		</isNotEmpty>
+	</select>
+	
+	<insert id="insert_questionnarire_summary_user" parameterClass="questionUser">
+		INSERT INTO `x_questionnaire_summary_user`(`qs_id`, `user_id`, `qsu_gift_state`, `qsu_private_gift`, `qsu_friend_gift`, `qsu_create_time`, `qsu_modify_time`, `qsu_status`)
+			VALUES
+		(#qsId#, #userId#, #giftState#, #privateGift#, #friendGift#, now(), now(), #status#);
+	</insert>
+	
+	<update id="update_questionnarire_summary_user" parameterClass="questionUser">
+		update x_questionnaire_summary_user 
+		<dynamic prepend="set">
+			<isNotEmpty prepend="," property="giftState">
+				qsu_gift_state = #giftState#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="privateGift">
+				qsu_private_gift = #privateGift#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="friendGift">
+				qsu_friend_gift = #friendGift#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="status">
+				qsu_status = #status#
+			</isNotEmpty>
+		</dynamic>
+		where qsu_id = #id#
+	</update>
+</sqlMap>

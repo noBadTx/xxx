@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>我合品管理平台</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="assets/style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.min.css">
+<!--[if IE 7]>
+<link rel="stylesheet" href="assets/font-awesome/css/font-awesome-ie7.css">
+<![endif]-->
+<!--[if lt IE 9]>
+<script src="assets/html5.js"></script>
+<![endif]-->
+</head>
+<body class="page">
+	<header class="g_hd clearfix">
+		<div class="fl logo">我合品管理平台</div>
+		<div class="fr"><span>Admin</span><a href="javascript:;" class="sign-out">退出</a></div>
+	</header>
+
+	<section class="clearfix g_bd">
+		<nav class="nav_side">
+			<header>
+				<p>品牌<a href="javascript:;" class="addBrand"><i class="fa fa-plus"></i>新增</a></p>
+			</header>
+			<ul>
+				<li class="active">
+					<dl>
+						<dt><span class="fa fa-android"></span>肯德基</dt>
+						<dd><a class="cur" href="brand-activity.html">活动管理</a></dd>
+						<dd><a href="brand-profile.html">账号管理</a></dd>
+					</dl>	
+				</li>
+				<li>
+					<dl>
+						<dt><span class="fa fa-list"></span>XXX<span class="fa fa-angle-down"></span></dt>
+						<dd><a href="brand-activity.html">活动管理</a></dd>
+						<dd><a href="brand-profile.html">账号管理</a></dd>
+					</dl>	
+				</li>
+			</ul>
+		</nav>
+		<div class="con_wrap">
+			<div class="con_main">
+				<nav class="nav_main"><a href="index.html">首页</a><a href="brandManager.html" class="cur">品牌管理</a><a href="userManager.html">用户管理</a><a href="financeManager.html">财务管理</a><a href="system.html">系统管理</a></nav>
+				<div class="box-main">
+					<div class="crumb"><a href="index.html">品牌管理</a>&gt;<span>活动管理</span>&gt;<span>问卷导入</span></div>
+					<div class="form_wrap">
+						<form class="importQuestionnaireForm" action="">
+							<p class="form_item">
+								<label class="lb_text"><i class="req">*</i>标题：</label><input type="text" value="" name="questionnaireName"  class="inputxt" datatype="*" nullmsg="请输入标题！"><span class="Validform_checktip"></span>
+							</p>
+							<div class="form_item">
+								<label class="lb_text"><i class="req">*</i>导入：</label><input type="text" value="" name="uploadFile"  class="inputxt" datatype="*" nullmsg="请上传文件！">&nbsp;&nbsp;<div class="unloadFile">上传</div>
+							</div>
+							<p class="form_item">
+								<label class="lb_text"><i class="req">*</i>url：</label><input type="text" value="" name="url"  class="inputxt" datatype="*,url" nullmsg="请输入下载地址！"><span class="Validform_checktip"></span>
+							</p>
+
+							<p class="form_item opt">
+								<input type="submit" class="button" value="确定"><a href="brand-activity.html" class="button gray ml20">取消</a>
+							</p>
+						</form>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</section>
+	<footer class="g_ft">Copyright 2006-2014 版权所有 我合品</footer>
+
+	<script type="text/javascript" src="assets/lib/sea.js"></script>
+	<script type="text/javascript" src="assets/lib/sea.config.js"></script>
+	<script type="text/javascript">seajs.use('modules/brand');</script>
+<script type="text/javascript" src="http://libs.useso.com/js/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="assets/webuploader/webuploader.min.js"></script>
+<script type="text/javascript" src="assets/upload.js"></script>
+
+</body>
+</html>

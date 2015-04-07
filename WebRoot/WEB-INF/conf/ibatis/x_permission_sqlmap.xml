@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="permission">
+	<typeAlias alias="permission"
+		type="com.xemoo.pojo.login.Permission" />
+
+	<!-- 查询资源信息 -->
+	<select id="permission_findall" resultClass="permission">
+		select `pm_id` `id`,
+		`pm_name` `name`, `pm_resource` `resource`,
+		`pm_parent_id` `parentId` ,
+		`pm_type` `type`, `pm_status` `status`, `pm_create` `create`,
+		`pm_modify`
+		`modify`,
+		`pm_key` `key` ,
+		`order` `order`
+		from
+		x_permission x
+		where x.`pm_status` = 1
+	</select>
+
+	<!-- 通过账号id查找到有权限资源 -->
+	<select id="permission_findall_to_accountId" resultClass="permission"
+		parameterClass="int">
+		select x.`pm_id` `id`,
+		x.`pm_name` `name`,
+		x.`pm_resource`
+		`resource`,
+		x.`pm_parent_id` `parentId` ,
+		x.`pm_type`
+		`type`, x.`pm_status`
+		`status`, x.`pm_create` `create`,x.`pm_modify`
+		`modify`,
+		x.`pm_key` `key`,
+		x.`order` `order`
+		FROM x_account_role xar, x_role_module xrm, x_permission x ,x_role_permission xr
+		where xar.ar_status = 1  and  xrm.role_m_status = 1 and x.`pm_status` = 1 and 
+        xrm.f_role_id = xar.ar_f_role_id  and xrm.role_id = xr.rp_role_id and
+		xr.rp_permission_id = x.pm_id and xar.ar_account_id = #id#
+	</select>
+	<!-- 
+	<select id="permission_findall_to_roleID" resultClass="permission"
+		parameterClass="int">
+		SELECT
+		`pm_id` `id`,
+		`pm_name` `name`,
+		`pm_resource` `resource`,
+		`pm_parent_id` `parentId`,
+		`pm_type` `type`,
+		`pm_status` `status`,
+		`pm_create` `create`,
+		`pm_modify` `modify`,
+		`pm_key` `key`,
+		`order` `order`
+		FROM x_permission p
+		WHERE EXISTS
+		(
+		SELECT
+		rp_permssion_id
+		FROM b_role_permission rp
+		WHERE p.pm_id = rp.rp_permssion_id AND rp_role_id = #id#
+		)
+		and p.`pm_status`
+		= 1
+	</select>
+	 -->
+
+	<!-- 查询资源信息列表 -->
+	<select id="permission_list_by_ppid" resultClass="permission"
+		parameterClass="int">
+		select `pm_id` `id`,
+		`pm_name` `name`,
+		`pm_resource` `resource`,
+		`pm_parent_id` `parentId` ,
+		`pm_type` `type`,
+		`pm_status` `status`, `pm_create` `create`,
+		`pm_modify`
+		`modify`,
+		`pm_key` `key` ,
+		`order` `order`
+		from
+		x_permission b where b.`pm_status`
+		= 1 and b.`pm_parent_id` = #id#
+	</select>
+
+</sqlMap>

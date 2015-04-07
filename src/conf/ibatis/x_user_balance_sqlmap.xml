@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="user_balance">
+	<typeAlias alias="userBalance" type="com.xemoo.pojo.finace.UserBalance" />
+	<resultMap id="user_balance_rtMap" class="userBalance">
+		<result column="ub_id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="ub_amount" property="amount" />
+		<result column="ub_gift_amount" property="giftAmount" />
+	</resultMap>
+	
+	<select id="qryUserBalanceByUserId"  resultMap="user_balance_rtMap" parameterClass="long"> 
+		select ub_id,user_id,ub_amount,ub_gift_amount
+		from x_user_balance xa where 1=1 and 
+		user_id = #userId#
+	</select>
+	
+	<insert id="insertUserBalance" parameterClass="userBalance">
+		insert into x_account (ub_id,user_id,ub_amount,ub_gift_amount) values 
+		(#id#, #userId#, #amount#, #giftAmount#)
+		<selectKey resultClass="int" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS id
+		</selectKey>
+	</insert>
+	
+</sqlMap>
