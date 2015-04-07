@@ -11,18 +11,18 @@
 		maxSessions="40" maxTransactions="32" useStatementNamespaces="true" />
 
 	<sqlMap resource="ibatis/x_account.ibatis.xml" />
-	
+
 	<sqlMap resource="ibatis/x_account_sqlmap.xml" />
-	
+
 	<sqlMap resource="ibatis/x_front_role_sqlmap.xml" />
-	
+
 	<sqlMap resource="ibatis/x_permission_sqlmap.xml" />
-	
+
 	<sqlMap resource="ibatis/x_questionnaire_gift_config.xml" />
-	
+
 	<sqlMap resource="ibatis/x_questionnaire.xml" />
-	
+
 	<sqlMap resource="ibatis/x_role_sqlmap.xml" />
-	
+
 	<sqlMap resource="ibatis/x_user_balance_sqlmap.xml" />
 </sqlMapConfig>
